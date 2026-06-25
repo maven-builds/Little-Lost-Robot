@@ -17,7 +17,7 @@ public class Sound {
         audioAddress[0] = getClass().getResource("/sound/MysticalJam.wav");
         audioAddress[1] = getClass().getResource("/sound/PowerUp.wav");
         audioAddress[2] = getClass().getResource("/sound/Coin.wav");
-        audioAddress[3] = getClass().getResource("/sound/RetroJam.wav");
+        audioAddress[3] = getClass().getResource("/sound/Retro Arcade LoFi.wav");
         audioAddress[4] = getClass().getResource("/sound/Unlock.wav");
     }
 

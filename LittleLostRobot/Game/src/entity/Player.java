@@ -241,6 +241,12 @@ public class Player extends Entity{
 
                     gp.canvas.revealDispatch("Corn Harvested");
                     break;
+
+                case "Chest":
+                    gp.playEffect(1);
+                    gp.stopMusic(); // Stop music when the player gets the chest
+                    gp.canvas.endState = true; // End game when the player does so
+                    break;
             }
         }
     }
