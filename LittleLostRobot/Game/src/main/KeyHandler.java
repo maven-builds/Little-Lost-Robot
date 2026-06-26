@@ -7,6 +7,7 @@ public class KeyHandler implements KeyListener
 {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed; // Creates directions
+    boolean trackRendering = false;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -36,6 +37,21 @@ public class KeyHandler implements KeyListener
         if (code == KeyEvent.VK_D)
         {
             rightPressed = true; // Go right if key D pressed
+        }
+
+        // DEBUGGING (RENDER TIME)
+
+        if (code == KeyEvent.VK_R)
+        {
+            if (trackRendering == false)
+            {
+                trackRendering = true; // When 'R' is pressed, display and update the render time
+            }
+
+            else if (trackRendering == true)
+            {
+                trackRendering = false; // If render time is already being displayed, take it down if 'R' is pressed again
+            }
         }
 
     }

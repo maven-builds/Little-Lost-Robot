@@ -125,6 +125,14 @@ public class GamePanel extends JPanel implements Runnable{
 
         g2.setColor(Color.white); // Draws a rectangle on the screen and fills it with the specified color
 
+        // DEBUGGING (RENDER TIME)
+        long drawStart = 0;
+
+        if (keyH.trackRendering == true)
+        {
+            drawStart = System.nanoTime(); // This will check the time it takes to draw objects
+        }
+
         // Coordinates "playerX" and "playerY" are now variables
 
         tileH.draw(g2); // Tiles will be drawn before the player
@@ -144,6 +152,17 @@ public class GamePanel extends JPanel implements Runnable{
 
         player.draw(g2); // Draw the player
         canvas.draw(g2); // This will draw all UI elements above every other graphic
+
+        // DEBUGGING (DRAW TIME)
+
+        if (keyH.trackRendering == true)
+        {
+            long drawEnd = System.nanoTime(); // How long does it take to finish drawing
+            long timePassed = drawEnd - drawStart; // Time spent drawing
+            g2.setColor(Color.white);
+            g2.drawString("Render Time: 0.0" + (timePassed / 10000) + " s", 10, 400); // Display Render Time
+            System.out.println("Render Time: 0.0" + (timePassed / 10000) + " seconds");
+        }
 
         g2.dispose(); // Clear the screen
     }
