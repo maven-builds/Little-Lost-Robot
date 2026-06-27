@@ -1,6 +1,7 @@
 package object;
 
 import main.GamePanel;
+import main.ToolBox;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,6 +17,9 @@ public class SuperObject {
 
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
+
+    ToolBox  toolBox = new ToolBox();
+
     public void draw(Graphics2D g2, GamePanel gp)
     {
         // This allows us to draw objects onto the screen based on the player's position

@@ -1,9 +1,11 @@
 package Tile;
 
 import main.GamePanel;
+import main.ToolBox;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,33 +31,36 @@ public class TileManager {
 
     public void getTileImage()
     {
+
+            setUp(0, "grass", false);
+            setUp(1, "wall", true);
+            setUp(2, "water1", true);
+            setUp(3, "earth", false);
+            setUp(4, "sand1", false);
+            setUp(5, "tree1", true);
+
+            // One way, albeit inefficiently, to scale images
+
+            /* BufferedImage scaledImage = new BufferedImage(gp.tileSize, gp.tileSize, tile[0].image.getType()); // BufferedImage is first instantiated
+            Graphics2D g2 = scaledImage.createGraphics(); // This saves whatever g2 draws in scaledImage
+            g2.drawImage(tile[0].image, 0, 0, gp.tileSize, gp.tileSize, null); // This draws the grass (tile[0]) into the scaledImage variable Graphics 2D is now linked to
+            tile[0].image = scaledImage; */
+    }
+
+    // A method to apply image scaling to each tile
+
+    public void setUp(int index, String imageName, boolean collision)
+    {
+        ToolBox toolBox = new ToolBox();
+
         try {
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
-
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
-            tile[1].collision = true;
-
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water1.png"));
-            tile[2].collision = true;
-
-
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
-
-            tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand1.png"));
-
-            tile[5] = new Tile();
-            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree1.png"));
-            tile[5].collision = true;
-
-
+            tile[index] = new Tile(); // This can be applied to any tile
+            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName + ".png")); // This can be applied to any image location
+            tile[index].image = toolBox.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+            tile[index].collision = collision;
         } catch(IOException e)
         {
-            e.printStackTrace();  
+            e.printStackTrace();
         }
     }
 
@@ -117,7 +122,7 @@ public class TileManager {
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY)
             {
-                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(tile[tileNum].image, screenX, screenY, null); // This function leaves image scaling to Graphics (2D)
             }
 
             worldCol++; // Increase the column number by 1

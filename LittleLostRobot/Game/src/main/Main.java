@@ -20,5 +20,9 @@ public class Main
 
         gamePanel.gameSetUp(); // Invoking the 'objSetUp' function given in our GamePanel class
         gamePanel.startGameThread(); // Activates our game thread
+
+        // Scaling Beforehand: 270,000 to 620,000 nanoseconds, ~445,000 nanoseconds avg.
+        // Scaling During The Game Loop: 450,000 to 920,000 nanoseconds, ~685,000 nanoseconds avg.
+        // Game renders ~35% faster now
     }
 }

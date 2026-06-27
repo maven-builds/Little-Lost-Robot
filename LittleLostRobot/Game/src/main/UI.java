@@ -42,13 +42,13 @@ public class UI {
         text1 = new Font("Arial", Font.PLAIN, 40); // Font descriptor for the first text
         text2 = new Font("Arial", Font.PLAIN, 40); // Front descriptor for the second text
 
-        ObjectKey key = new ObjectKey(); // Instantiating the ObjectKet class
+        ObjectKey key = new ObjectKey(gp); // Instantiating the ObjectKet class
         keyVisual = key.image;
 
-        ObjectBoots boots = new ObjectBoots();
+        ObjectBoots boots = new ObjectBoots(gp);
         bootVisual = boots.image;
 
-        ObjectFruit berry = new ObjectFruit();
+        ObjectFruit berry = new ObjectFruit(gp);
         berryVisual = berry.image;
     }
 
@@ -73,7 +73,7 @@ public class UI {
 
             int x; int y;
 
-            text = "Congrats! You spent " + timeHUD.format(timeSpent) + " seconds playing!"; // Player has found the chest
+            text = "Congrats! You spent " + timeHUD.format(timeSpent) + "s playing!"; // Player has found the chest
             textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth(); // Return the length of the text above
 
             x = gp.screenWidth / 2 - ((textLength/2) + 274); // This will slightly center the text

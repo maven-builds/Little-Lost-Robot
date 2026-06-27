@@ -160,8 +160,8 @@ public class GamePanel extends JPanel implements Runnable{
             long drawEnd = System.nanoTime(); // How long does it take to finish drawing
             long timePassed = drawEnd - drawStart; // Time spent drawing
             g2.setColor(Color.white);
-            g2.drawString("Render Time: 0.0" + (timePassed / 10000) + " s", 10, 400); // Display Render Time
-            System.out.println("Render Time: 0.0" + (timePassed / 10000) + " seconds");
+            g2.drawString("Render Time:" + timePassed + "ns", 10, 400); // Display Render Time
+            System.out.println("Render Time:" + timePassed + " nanoseconds");
         }
 
         g2.dispose(); // Clear the screen
