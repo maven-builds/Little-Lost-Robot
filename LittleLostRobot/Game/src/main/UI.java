@@ -1,6 +1,7 @@
 package main;
 
 import object.ObjectBoots;
+import object.ObjectCorn;
 import object.ObjectFruit;
 import object.ObjectKey;
 
@@ -16,18 +17,16 @@ public class UI {
 
     GamePanel gp;
     Font text1; // Let's EXCLUDE this from the game loop
-    BufferedImage keyVisual;
-
-    Font text2;
-    BufferedImage bootVisual;
+    BufferedImage cornVisual;
 
     Font gameOverFont; // We'll use this for endState messages
 
-    Font text3;
+    Font text2;
     BufferedImage berryVisual;
 
     double timeSpent; // Time spent playing
-    DecimalFormat timeHUD = new DecimalFormat("#0.00"); // Limit the time playing to the tenths place
+    int minutes = 0;
+    DecimalFormat timeHUD = new DecimalFormat("#0"); // Limit the time playing to the tenths place
 
     public boolean dispatchSent = false; // Dispatch has NOT been sent
     public String dispatch = ""; // This will be some text shown to the player after a certain trigger
@@ -42,11 +41,8 @@ public class UI {
         text1 = new Font("Arial", Font.PLAIN, 40); // Font descriptor for the first text
         text2 = new Font("Arial", Font.PLAIN, 40); // Front descriptor for the second text
 
-        ObjectKey key = new ObjectKey(gp); // Instantiating the ObjectKet class
-        keyVisual = key.image;
-
-        ObjectBoots boots = new ObjectBoots(gp);
-        bootVisual = boots.image;
+        ObjectCorn corn = new ObjectCorn(gp); // Instantiating the ObjectKet class
+        cornVisual = corn.image;
 
         ObjectFruit berry = new ObjectFruit(gp);
         berryVisual = berry.image;
@@ -73,7 +69,7 @@ public class UI {
 
             int x; int y;
 
-            text = "Congrats! You spent " + timeHUD.format(timeSpent) + "s playing!"; // Player has found the chest
+            text = "Congrats! Play Time: " + minutes + "m" + " and " + timeHUD.format(timeSpent) + "s"; // Player has found the chest
             textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth(); // Return the length of the text above
 
             x = gp.screenWidth / 2 - ((textLength/2) + 274); // This will slightly center the text
@@ -89,7 +85,7 @@ public class UI {
             text = "You've Finished The Game!"; // Player has finished the game
             textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
 
-            x = gp.screenWidth / 2 + (textLength * 2); // We'll display this message sligtly lower than the first
+            x = gp.screenWidth / 2 + (textLength * 2); // We'll display this message slightly lower than the first
             y = gp.screenHeight / 2; // - (gp.tileSize * 3)
 
             // Finally ending the game
@@ -104,16 +100,22 @@ public class UI {
             g2.setFont(text2);
             g2.setColor(Color.white); // Setting the color of the text
 
-            g2.drawImage(keyVisual, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-            g2.drawString(" X " + gp.player.numOfKeys, 65, 63); // Specifies the position of the Key icon
+            g2.drawImage(cornVisual, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
+            g2.drawString(" X " + gp.player.numOfCorn, 65, 63); // Specifies the position of the Corn icon
 
-            g2.drawImage(bootVisual, gp.tileSize/2, gp.tileSize/2 + 63, gp.tileSize, gp.tileSize, null);
-            g2.drawString(" X " + gp.player.numOfBoots, 65, 129); // Specifies the position of the Boot icon
+            g2.drawImage(berryVisual, gp.tileSize/2, gp.tileSize/2 + 63, gp.tileSize, gp.tileSize, null);
+            g2.drawString(" X " + gp.player.numOfBerries, 65, 129); // Specifies the position of the Boot icon
 
             // Recording Time Spent Playing
 
             timeSpent += (double) 1/60; // This will call the draw method 60 times a second
-            g2.drawString("Time: " + timeHUD.format(timeSpent), gp.tileSize * 11, 65);
+            g2.drawString("Time: "  + minutes + "m " + timeHUD.format(timeSpent) + "s", gp.tileSize * 5, 65);
+
+            if (timeSpent >= 59)
+            {
+                minutes += 1;
+                timeSpent -= 59;
+            }
 
 
             if (dispatchSent == true)
@@ -123,17 +125,23 @@ public class UI {
 
                 dispatchTracker++; // Every time a dispatch is drawn on screen, the dispatchTracker will go up by 1
 
-                if (dispatchTracker > 120 && (dispatch == "New Key Collected!" || dispatch == "Door Unlocked"))
+                if (dispatchTracker > 120 && dispatch == "Door Unlocked")
                 {
-                    // If a key is collected or a door is unlocked, after 2 seconds, the dispatch is no longer rendered
+                    // After 2 seconds, the dispatch is no longer rendered
 
+                    dispatchTracker = 0;
+                    dispatchSent = false;
+                }
+
+                else if (dispatchTracker > 80 && dispatch == "Corn Harvested")
+                {
                     dispatchTracker = 0;
                     dispatchSent = false;
                 }
 
                 else if (dispatchTracker > 180 && (dispatch == "Speed Boost Activated!" || dispatch == "Violet Berry Eaten"))
                 {
-                    // If a boot is collected, after 3 seconds, the dispatch is no longer redered
+                    // If a boot is collected, after 3 seconds, the dispatch is no longer rendered
 
                     dispatchTracker = 0;
                     dispatchSent = false;

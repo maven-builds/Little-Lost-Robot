@@ -19,6 +19,8 @@ public class Sound {
         audioAddress[2] = getClass().getResource("/sound/Coin.wav");
         audioAddress[3] = getClass().getResource("/sound/Retro Arcade LoFi.wav");
         audioAddress[4] = getClass().getResource("/sound/Unlock.wav");
+        audioAddress[5] = getClass().getResource("/sound/HarvestEffect.wav");
+        audioAddress[6] = getClass().getResource("/sound/SwimEffect.wav");
     }
 
     // We will need functions to determine what audio to play, loop, and stop
@@ -36,22 +38,31 @@ public class Sound {
 
         } catch(Exception e)
         {
-            // ... ... ...
+            e.printStackTrace();
         }
     }
 
     public void play()
     {
-        clip.start(); // Begin playing the audio file being opened
+        if (clip  != null)
+        {
+            clip.start(); // Begin playing the audio file being opened
+        }
     }
 
     public void loop()
     {
-        clip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the audio file being played
+        if (clip != null)
+        {
+            clip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the audio file being played
+        }
     }
 
     public void stop()
     {
-        clip.stop(); // Stop the audio file being played
+        if (clip != null)
+        {
+            clip.stop(); // Stop the audio file being played
+        }
     }
 }

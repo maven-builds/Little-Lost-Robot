@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.Buffer;
 
 public class TileManager {
 
@@ -34,10 +35,14 @@ public class TileManager {
 
             setUp(0, "grass", false);
             setUp(1, "wall", true);
-            setUp(2, "water1", true);
+
+            setUp(2, "water1", false);
+            tile[2].submerged = true;
+
             setUp(3, "earth", false);
             setUp(4, "sand1", false);
             setUp(5, "tree1", true);
+            setUp(6, "rock", true);
 
             // One way, albeit inefficiently, to scale images
 

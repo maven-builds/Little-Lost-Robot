@@ -51,41 +51,45 @@ public class AssetSetter {
         gp.obj[8].worldX = 25 * gp.tileSize;
         gp.obj[8].worldY = 23 * gp.tileSize;
 
-        gp.obj[9] = new ObjectCorn(gp);
-        gp.obj[9].worldX = 38 * gp.tileSize;
-        gp.obj[9].worldY = 41 * gp.tileSize;
+        gp.obj[9] = new ObjectFruit(gp);
+        gp.obj[9].worldX = 15 * gp.tileSize;
+        gp.obj[9].worldY = 8 * gp.tileSize;
 
         gp.obj[10] = new ObjectCorn(gp);
-        gp.obj[10].worldX = 39 * gp.tileSize;
+        gp.obj[10].worldX = 38 * gp.tileSize;
         gp.obj[10].worldY = 41 * gp.tileSize;
 
         gp.obj[11] = new ObjectCorn(gp);
-        gp.obj[11].worldX = 40 * gp.tileSize;
+        gp.obj[11].worldX = 39 * gp.tileSize;
         gp.obj[11].worldY = 41 * gp.tileSize;
 
         gp.obj[12] = new ObjectCorn(gp);
-        gp.obj[12].worldX = 39 * gp.tileSize;
-        gp.obj[12].worldY = 42 * gp.tileSize;
+        gp.obj[12].worldX = 40 * gp.tileSize;
+        gp.obj[12].worldY = 41 * gp.tileSize;
 
         gp.obj[13] = new ObjectCorn(gp);
         gp.obj[13].worldX = 39 * gp.tileSize;
-        gp.obj[13].worldY = 41 * gp.tileSize;
+        gp.obj[13].worldY = 42 * gp.tileSize;
 
         gp.obj[14] = new ObjectCorn(gp);
         gp.obj[14].worldX = 39 * gp.tileSize;
         gp.obj[14].worldY = 41 * gp.tileSize;
 
         gp.obj[15] = new ObjectCorn(gp);
-        gp.obj[15].worldX = 40 * gp.tileSize;
-        gp.obj[15].worldY = 42 * gp.tileSize;
+        gp.obj[15].worldX = 39 * gp.tileSize;
+        gp.obj[15].worldY = 41 * gp.tileSize;
 
         gp.obj[16] = new ObjectCorn(gp);
         gp.obj[16].worldX = 40 * gp.tileSize;
-        gp.obj[16].worldY = 41 * gp.tileSize;
+        gp.obj[16].worldY = 42 * gp.tileSize;
 
         gp.obj[17] = new ObjectCorn(gp);
-        gp.obj[17].worldX = 43 * gp.tileSize;
+        gp.obj[17].worldX = 40 * gp.tileSize;
         gp.obj[17].worldY = 41 * gp.tileSize;
+
+        gp.obj[18] = new ObjectCorn(gp);
+        gp.obj[18].worldX = 43 * gp.tileSize;
+        gp.obj[18].worldY = 41 * gp.tileSize;
 
     }
 }

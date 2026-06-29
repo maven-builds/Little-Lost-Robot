@@ -17,8 +17,8 @@ public class Player extends Entity{
     public int numOfKeys = 0;
     public int numOfBoots = 0;
     public int numOfBerries = 0;
-    public int berryCounter = 0;
     public int numOfCorn = 0;
+    public boolean hasEatenBerries = false;
 
     // These two are final integers, representing the player's position, so they won't change
 
@@ -64,14 +64,19 @@ public class Player extends Entity{
 
     public void getPlayerImage()
     {
-        up1 = setUp("boy_up_1");
-        up2 = setUp("boy_up_2");
-        down1 = setUp("boy_down_1");
-        down2 = setUp("boy_down_2");
-        right1 = setUp("boy_right_1");
-        right2 = setUp("boy_right_2");
-        left1 = setUp("boy_left_1");
-        left2 = setUp("boy_left_2");
+        up1 = setUp("robot_up_1");
+        up2 = setUp("robot_up_2");
+        down1 = setUp("robot_down_1");
+        down2 = setUp("robot_down_2");
+        right1 = setUp("robot_right_1");
+        right2 = setUp("robot_right_2");
+        left1 = setUp("robot_left_1");
+        left2 = setUp("robot_left_2");
+
+        swimUp = setUp("robot_swimUp");
+        swimDown = setUp("robot_swimDown");
+        swimLeft = setUp("robot_swimLeft");
+        swimRight = setUp("robot_swimRight");
     }
 
     public BufferedImage setUp(String imageName)
@@ -98,8 +103,6 @@ public class Player extends Entity{
 
         if (keyH.upPressed == true || keyH.downPressed == true || keyH.rightPressed == true || keyH.leftPressed == true)
         {
-            // Here:
-
             if (keyH.upPressed == true)
             {
                 direction = "up";
@@ -133,22 +136,29 @@ public class Player extends Entity{
             // If collision is false, the player cannot move
             if (collisionOn == false)
             {
+                int currentSpeed = speed;
+
+                if (submerged == true)
+                {
+                    currentSpeed = 3;
+                }
+
                 switch(direction)
                 {
                     case "up":
-                        worldY -= speed;
+                        worldY -= currentSpeed;
                         break;
 
                     case "down":
-                        worldY += speed;
+                        worldY += currentSpeed;
                         break;
 
                     case "left":
-                        worldX -= speed;
+                        worldX -= currentSpeed;
                         break;
 
                     case "right":
-                        worldX += speed;
+                        worldX += currentSpeed;
                         break;
                 }
             }
@@ -171,6 +181,16 @@ public class Player extends Entity{
                     else
                     {
                         spriteNumber = 1;
+                    }
+
+                    if (submerged == true)
+                    {
+                        gp.playEffect(6); // Play a swimming sound effect when the player is in water
+                    }
+
+                    else
+                    {
+                        gp.stopEffect(6);
                     }
 
                     spriteCounter = 0;
@@ -223,31 +243,28 @@ public class Player extends Entity{
                 case "Violet Berry":
                     numOfBerries += 1;
                     gp.playEffect(1);
-                    speed += 7; // When the player picks up the boots, they become faster
-                    berryCounter++;
-                    gp.obj[i] = null; // When the boots are picked up, they disappear
 
-                    if (berryCounter > 10)
+                    if (hasEatenBerries == false)
                     {
-                        // After 10 seconds, the speed boost from the Violet Berry is over
-                        speed -= 7;
+                        speed += 7; // When the player picks up the boots, they become faster
+                        hasEatenBerries = true;
                     }
+
+                    else
+                    {
+                        speed -= 7;
+                        hasEatenBerries = false;
+                    }
+
+                    gp.obj[i] = null; // When the boots are picked up, they disappear
 
                     gp.canvas.revealDispatch("Violet Berry Eaten");
                     break;
 
                 case "Corn":
                     numOfCorn += 1;
-                    gp.playEffect(1);
-                    speed += 7; // When the player picks up the boots, they become faster
-                    berryCounter++;
+                    gp.playEffect(5);
                     gp.obj[i] = null; // When the boots are picked up, they disappear
-
-                    if (berryCounter > 10)
-                    {
-                        // After 10 seconds, the speed boost from the Violet Berry is over
-                        speed -= 7;
-                    }
 
                     gp.canvas.revealDispatch("Corn Harvested");
                     break;
@@ -268,17 +285,15 @@ public class Player extends Entity{
         switch(direction)
         {
             case "up":
-                if (spriteNumber == 1)
+                if (submerged == true)
                 {
-                    image = up1;
+                    image = (spriteNumber == 1) ? swimUp : swimUp;
                 }
 
-                else if (spriteNumber == 2)
+                else
                 {
-                    image = up2;
+                    image = (spriteNumber == 1) ? up1 : up2;
                 }
-
-
                 break;
 
             case "down":
@@ -290,6 +305,11 @@ public class Player extends Entity{
                 else if (spriteNumber == 2)
                 {
                     image = down2;
+                }
+
+                if ((spriteNumber == 1 || spriteNumber == 2) && submerged == true)
+                {
+                    image = swimDown;
                 }
 
                 break;
@@ -305,6 +325,11 @@ public class Player extends Entity{
                     image = right2;
                 }
 
+                if ((spriteNumber == 1 || spriteNumber == 2) && submerged == true)
+                {
+                    image = swimRight;
+                }
+
                 break;
 
             case "left":
@@ -316,6 +341,11 @@ public class Player extends Entity{
                 else if (spriteNumber == 2)
                 {
                     image = left2;
+                }
+
+                if ((spriteNumber == 1 || spriteNumber == 2) && submerged == true)
+                {
+                    image = swimLeft;
                 }
 
                 break;

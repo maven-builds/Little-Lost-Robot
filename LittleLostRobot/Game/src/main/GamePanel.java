@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread; // This constructor sets up a game "clock/thread" for processing frame rates per second
 
     Sound music = new Sound(); // Instantiating sounds for this GamePanel class - MUSIC
-    Sound effects =  new Sound(); // Instantiating sounds for this GamePanel class - SOUND EFFECTS
+    public Sound effects =  new Sound(); // Instantiating sounds for this GamePanel class - SOUND EFFECTS
 
     public Player player = new Player(this, keyH);
 
@@ -160,7 +160,7 @@ public class GamePanel extends JPanel implements Runnable{
             long drawEnd = System.nanoTime(); // How long does it take to finish drawing
             long timePassed = drawEnd - drawStart; // Time spent drawing
             g2.setColor(Color.white);
-            g2.drawString("Render Time:" + timePassed + "ns", 10, 400); // Display Render Time
+            g2.drawString("Render Time: " + timePassed + " nanoseconds", 10, 400); // Display Render Time
             System.out.println("Render Time:" + timePassed + " nanoseconds");
         }
 
@@ -187,6 +187,11 @@ public class GamePanel extends JPanel implements Runnable{
 
         effects.setFile(i);
         effects.play();
+    }
+
+    public void stopEffect(int i)
+    {
+        effects.stop();
     }
 
 }

@@ -13,6 +13,8 @@ public class CollisionChecker {
 
     public void checkTile(Entity entity)
     {
+        entity.submerged = false;
+
         int entityLeftWorldX = entity.worldX + entity.solidArea.x;
         int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
 
@@ -40,6 +42,13 @@ public class CollisionChecker {
                     entity.collisionOn = true;
                 }
 
+                // Check if the player is colliding with water
+
+                if (gp.tileH.tile[tileNum1].submerged == true || gp.tileH.tile[tileNum2].submerged == true)
+                {
+                    entity.submerged = true;
+                }
+
                 break;
 
             case "down":
@@ -51,6 +60,11 @@ public class CollisionChecker {
                 if (gp.tileH.tile[tileNum1].collision == true || gp.tileH.tile[tileNum2].collision == true)
                 {
                     entity.collisionOn = true;
+                }
+
+                if (gp.tileH.tile[tileNum1].submerged == true || gp.tileH.tile[tileNum2].submerged == true)
+                {
+                    entity.submerged = true;
                 }
 
                 break;
@@ -66,6 +80,11 @@ public class CollisionChecker {
                     entity.collisionOn = true;
                 }
 
+                if (gp.tileH.tile[tileNum1].submerged == true || gp.tileH.tile[tileNum2].submerged == true)
+                {
+                    entity.submerged = true;
+                }
+
                 break;
 
             case "right":
@@ -77,6 +96,11 @@ public class CollisionChecker {
                 if (gp.tileH.tile[tileNum1].collision == true || gp.tileH.tile[tileNum2].collision == true)
                 {
                     entity.collisionOn = true;
+                }
+
+                if (gp.tileH.tile[tileNum1].submerged == true || gp.tileH.tile[tileNum2].submerged == true)
+                {
+                    entity.submerged = true;
                 }
 
                 break;
