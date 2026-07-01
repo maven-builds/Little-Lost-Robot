@@ -20,6 +20,9 @@ public class Player extends Entity{
     public int numOfCorn = 0;
     public boolean hasEatenBerries = false;
 
+    public boolean poisoned = false;
+    public int numOfPoison;
+
     // These two are final integers, representing the player's position, so they won't change
 
     public final int screenX;
@@ -252,11 +255,11 @@ public class Player extends Entity{
 
                     else
                     {
-                        speed -= 7;
+                        speed = 5;
                         hasEatenBerries = false;
                     }
 
-                    gp.obj[i] = null; // When the boots are picked up, they disappear
+                    gp.obj[i] = null; // When the objects are picked up, they disappear
 
                     gp.canvas.revealDispatch("Violet Berry Eaten");
                     break;
@@ -266,7 +269,24 @@ public class Player extends Entity{
                     gp.playEffect(5);
                     gp.obj[i] = null; // When the boots are picked up, they disappear
 
+                    speed = 5;
+
                     gp.canvas.revealDispatch("Corn Harvested");
+                    break;
+
+                case "Poison":
+                    numOfPoison += 1;
+
+                    gp.playEffect(7);
+                    poisoned = true;
+                    gp.obj[i] = null;
+
+                    if (poisoned == true)
+                    {
+                        speed = 1;
+                    }
+
+                    gp.canvas.revealDispatch("You drank poison...");
                     break;
 
                 case "Chest":

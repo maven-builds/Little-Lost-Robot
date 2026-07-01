@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import javax.swing.*;
-
 import static java.awt.font.TextAttribute.FONT;
 
 // This will manage on-screen non-game visuals, the UI
@@ -27,6 +26,8 @@ public class UI {
     double timeSpent; // Time spent playing
     int minutes = 0;
     DecimalFormat timeHUD = new DecimalFormat("#0"); // Limit the time playing to the tenths place
+
+
 
     public boolean dispatchSent = false; // Dispatch has NOT been sent
     public String dispatch = ""; // This will be some text shown to the player after a certain trigger
@@ -116,6 +117,8 @@ public class UI {
                 minutes += 1;
                 timeSpent -= 59;
             }
+
+
 
 
             if (dispatchSent == true)

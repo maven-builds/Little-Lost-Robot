@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Little-Lost-Robot:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Little_Lost_Robot_jar</output-path>
+    <root id="archive" name="Little-Lost-Robot.jar">
+      <element id="module-output" name="Little-Lost-Robot" />
+    </root>
+  </artifact>
+</component>

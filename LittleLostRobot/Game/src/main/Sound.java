@@ -21,6 +21,7 @@ public class Sound {
         audioAddress[4] = getClass().getResource("/sound/Unlock.wav");
         audioAddress[5] = getClass().getResource("/sound/HarvestEffect.wav");
         audioAddress[6] = getClass().getResource("/sound/SwimEffect.wav");
+        audioAddress[7] = getClass().getResource("/sound/Slurp.wav");
     }
 
     // We will need functions to determine what audio to play, loop, and stop
